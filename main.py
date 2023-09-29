@@ -4,7 +4,13 @@ import numpy as np
 import pytesseract
 from PIL import ImageGrab
 from tkinter import *
+
 import playerCamsInput
+import atemControl
+
+debug: bool = False
+ipAddress: str = "192.1.1.1"
+
 
 #Point pytesseract to tesseract.exe
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
@@ -16,6 +22,9 @@ print(playerCams)
 changeCamFlag: bool = False
 activeCam: int = -1
 activePlayer: str = ""
+
+if not debug:
+    switcher = atemControl.Switcher(ipAddress)
 
 #Runs until it hears "Esc"
 while True:
@@ -59,6 +68,7 @@ while True:
     if changeCamFlag:
         print("New Cam! ActiveCam = " + str(activeCam))
         changeCamFlag = False
+        if not debug: switcher.switchCam(activeCam)
 
             
 
